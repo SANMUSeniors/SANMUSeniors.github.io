@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近年">
+<meta name="description" content="#GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近">
 <meta property="og:type" content="article">
 <meta property="og:title" content="三木学长的博客">
-<meta property="og:url" content="http://yoursite.com/2018/06/08/GAN学习指南：从原理入门到制作生成Demo，总共分几步/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/06/10/GAN学习指南：从原理入门到制作生成Demo，总共分几步/index.html">
 <meta property="og:site_name" content="三木学长的博客">
-<meta property="og:description" content="GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近年">
+<meta property="og:description" content="#GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c734444345.jpg?imageMogr2/format/jpg/quality/90">
 <meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c736a3d333.jpg?imageMogr2/format/jpg/quality/90">
@@ -99,10 +99,10 @@
 <meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c778485c56.png?imageMogr2/format/jpg/quality/90">
 <meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c779dc45c7.png?imageMogr2/format/jpg/quality/90">
 <meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c77ab93d25.png?imageMogr2/format/jpg/quality/90">
-<meta property="og:updated_time" content="2018-06-08T03:15:34.332Z">
+<meta property="og:updated_time" content="2018-06-10T11:57:46.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三木学长的博客">
-<meta name="twitter:description" content="GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近年">
+<meta name="twitter:description" content="#GAN学习指南：从原理入门到制作生成Demo，总共分几步？本文作者：何之源    2017-01-22 10:10导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。 生成式对抗网络（GAN）是近">
 <meta name="twitter:image" content="https://static.leiphone.com/uploads/new/article/740_740/201701/587c734444345.jpg?imageMogr2/format/jpg/quality/90">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/08/GAN学习指南：从原理入门到制作生成Demo，总共分几步/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/10/GAN学习指南：从原理入门到制作生成Demo，总共分几步/"/>
 
 
 
@@ -276,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/GAN学习指南：从原理入门到制作生成Demo，总共分几步/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/GAN学习指南：从原理入门到制作生成Demo，总共分几步/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林彬">
@@ -305,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T11:15:34+08:00">
-                2018-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T19:57:46+08:00">
+                2018-06-10
               </time>
             
 
@@ -343,7 +343,7 @@
       
 
       
-        <p>GAN学习指南：从原理入门到制作生成Demo，总共分几步？<br>本文作者：何之源    2017-01-22 10:10<br>导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。<br>雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。</p>
+        <p>#GAN学习指南：从原理入门到制作生成Demo，总共分几步？<br>本文作者：何之源    2017-01-22 10:10<br>导语：本文介绍下GAN和DCGAN的原理，以及如何使用Tensorflow做一个简单的生成图片的demo。<br>雷锋网注：本文作者何之源，复旦大学计算机科学硕士在读，研究人工智能计算机视觉方向。本文由雷锋网(公众号：雷锋网)编辑整理自作者知乎专栏，获授权发布。</p>
 <p>生成式对抗网络（GAN）是近年来大热的深度学习模型。最近正好有空看了这方面的一些论文，跑了一个GAN的代码，于是写了这篇文章来介绍一下GAN。</p>
 <p>本文主要分为三个部分：</p>
 <p>介绍原始的GAN的原理 </p>
@@ -462,6 +462,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/03/tensorflow源代码解析/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -528,7 +532,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
