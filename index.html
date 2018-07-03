@@ -262,6 +262,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/03/简单易学的机器学习算法——极限学习机(ELM) (1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林彬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三木学长的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/03/简单易学的机器学习算法——极限学习机(ELM) (1)/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T17:51:33+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: 简单易学的机器学习算法——极限学习机(ELM)<br>tags: 机器学习/算法</p>
+<h2 id="categories-原理"><a href="#categories-原理" class="headerlink" title="categories: 原理  "></a>categories: 原理  </h2><p>一、极限学习机的概念<br>       极限学习机(Extreme Learning Machine) ELM，是由黄广斌提出来的求解单隐层神经网络的算法。</p>
+<pre><code>ELM最大的特点是对于传统的神经网络，尤其是单隐层前馈神经网络(SLFNs)，在保证学习精度的前提下比传统的学习算法速度更快。
+</code></pre><p>二、极限学习机的原理<br>ELM是一种新型的快速学习算法，对于单隐层神经网络，ELM可以随机初始化输入权重和偏置并得到相应的输出权重。</p>
+<p>(选自黄广斌老师的PPT)</p>
+<pre><code>对于一个单隐层神经网络(见Figure 1)，假设有个任意的样本，其中，。对于一个有个隐层节点的单隐层神经网络可以表示为
+</code></pre><p>其中，为激活函数，为输入权重，为输出权重，是第个隐层单元的偏置。表示和的内积。</p>
+<pre><code>单隐层神经网络学习的目标是使得输出的误差最小，可以表示为
+</code></pre><p>即存在，和，使得</p>
+<p>可以矩阵表示为</p>
+<p>其中，是隐层节点的输出，为输出权重，为期望输出。</p>
+<p>，</p>
+<p>为了能够训练单隐层神经网络，我们希望得到，和，使得</p>
+<p>其中，，这等价于最小化损失函数</p>
+<p>传统的一些基于梯度下降法的算法，可以用来求解这样的问题，但是基本的基于梯度的学习算法需要在迭代的过程中调整所有参数。而在ELM算法中, 一旦输入权重和隐层的偏置被随机确定，隐层的输出矩阵就被唯一确定。训练单隐层神经网络可以转化为求解一个线性系统。并且输出权重可以被确定</p>
+<p>其中，是矩阵的Moore-Penrose广义逆。且可证明求得的解的范数是最小的并且唯一。</p>
+<p>三、实验<br>    我们使用《简单易学的机器学习算法——Logistic回归》中的实验数据。</p>
+<p>原始数据集<br>我们采用统计错误率的方式来评价实验的效果，其中错误率公式为：</p>
+<p>对于这样一个简单的问题，。<br>MATLAB代码<br>主程序<br>[plain] view plain copy<br>%% 主函数，二分类问题  </p>
+<p>%导入数据集<br>A = load(‘testSet.txt’);  </p>
+<p>data = A(:,1:2);%特征<br>label = A(:,3);%标签  </p>
+<p>[N,n] = size(data);  </p>
+<p>L = 100;%隐层节点个数<br>m = 2;%要分的类别数  </p>
+<p>%–初始化权重和偏置矩阵<br>W = rand(n,L)<em>2-1;<br>b_1 = rand(1,L);<br>ind = ones(N,1);<br>b = b_1(ind,:);%扩充成N</em>L的矩阵  </p>
+<p>tempH = data*W+b;<br>H = g(tempH);%得到H  </p>
+<p>%对输出做处理<br>temp_T=zeros(N,m);<br>for i = 1:N<br>    if label(i,:) == 0<br>        temp_T(i,1) = 1;<br>    else<br>        temp_T(i,2) = 1;<br>    end<br>end<br>T = temp_T*2-1;  </p>
+<p>outputWeight = pinv(H)*T;  </p>
+<p>%–画出图形<br>x_1 = data(:,1);<br>x_2 = data(:,2);<br>hold on<br>for i = 1 : N<br>    if label(i,:) == 0<br>        plot(x_1(i,:),x_2(i,:),’.g’);<br>    else<br>        plot(x_1(i,:),x_2(i,:),’.r’);<br>    end<br>end  </p>
+<p>output = H * outputWeight;<br>%—计算错误率<br>tempCorrect=0;<br>for i = 1:N<br>    [maxNum,index] = max(output(i,:));<br>    index = index-1;<br>    if index == label(i,:);<br>        tempCorrect = tempCorrect+1;<br>    end<br>end  </p>
+<p>errorRate = 1-tempCorrect./N;  </p>
+<p>激活函数<br>[plain] view plain copy<br>function [ H ] = g( X )<br>    H = 1 ./ (1 + exp(-X));<br>end  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/03/我的规划与职业发展/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -685,165 +835,6 @@
 <p>Ian Goodfellow对GAN一系列工作总结的ppt，确实精彩，推荐：GAN之父NIPS 2016演讲现场直击：全方位解读生成对抗网络的原理及未来</p>
 <p>GAN论文汇总，包含code：zhangqianhui/AdversarialNetsPapers</p>
 <p>雷锋网特约稿件，未经授权禁止转载。详情见转载须知。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/简单易学的机器学习算法——极限学习机(ELM) (1)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="林彬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="三木学长的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/08/简单易学的机器学习算法——极限学习机(ELM) (1)/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T10:45:41+08:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p>title: 简单易学的机器学习算法——极限学习机(ELM)<br>tags:</p>
-<ul>
-<li>机器学习                  </li>
-<li>算法<br>categories: <ul>
-<li>原理  </li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>一、极限学习机的概念<br>       极限学习机(Extreme Learning Machine) ELM，是由黄广斌提出来的求解单隐层神经网络的算法。</p>
-<pre><code>ELM最大的特点是对于传统的神经网络，尤其是单隐层前馈神经网络(SLFNs)，在保证学习精度的前提下比传统的学习算法速度更快。
-</code></pre><p>二、极限学习机的原理<br>ELM是一种新型的快速学习算法，对于单隐层神经网络，ELM可以随机初始化输入权重和偏置并得到相应的输出权重。</p>
-<p>(选自黄广斌老师的PPT)</p>
-<pre><code>对于一个单隐层神经网络(见Figure 1)，假设有个任意的样本，其中，。对于一个有个隐层节点的单隐层神经网络可以表示为
-</code></pre><p>其中，为激活函数，为输入权重，为输出权重，是第个隐层单元的偏置。表示和的内积。</p>
-<pre><code>单隐层神经网络学习的目标是使得输出的误差最小，可以表示为
-</code></pre><p>即存在，和，使得</p>
-<p>可以矩阵表示为</p>
-<p>其中，是隐层节点的输出，为输出权重，为期望输出。</p>
-<p>，</p>
-<p>为了能够训练单隐层神经网络，我们希望得到，和，使得</p>
-<p>其中，，这等价于最小化损失函数</p>
-<p>传统的一些基于梯度下降法的算法，可以用来求解这样的问题，但是基本的基于梯度的学习算法需要在迭代的过程中调整所有参数。而在ELM算法中, 一旦输入权重和隐层的偏置被随机确定，隐层的输出矩阵就被唯一确定。训练单隐层神经网络可以转化为求解一个线性系统。并且输出权重可以被确定</p>
-<p>其中，是矩阵的Moore-Penrose广义逆。且可证明求得的解的范数是最小的并且唯一。</p>
-<p>三、实验<br>    我们使用《简单易学的机器学习算法——Logistic回归》中的实验数据。</p>
-<p>原始数据集<br>我们采用统计错误率的方式来评价实验的效果，其中错误率公式为：</p>
-<p>对于这样一个简单的问题，。<br>MATLAB代码<br>主程序<br>[plain] view plain copy<br>%% 主函数，二分类问题  </p>
-<p>%导入数据集<br>A = load(‘testSet.txt’);  </p>
-<p>data = A(:,1:2);%特征<br>label = A(:,3);%标签  </p>
-<p>[N,n] = size(data);  </p>
-<p>L = 100;%隐层节点个数<br>m = 2;%要分的类别数  </p>
-<p>%–初始化权重和偏置矩阵<br>W = rand(n,L)<em>2-1;<br>b_1 = rand(1,L);<br>ind = ones(N,1);<br>b = b_1(ind,:);%扩充成N</em>L的矩阵  </p>
-<p>tempH = data*W+b;<br>H = g(tempH);%得到H  </p>
-<p>%对输出做处理<br>temp_T=zeros(N,m);<br>for i = 1:N<br>    if label(i,:) == 0<br>        temp_T(i,1) = 1;<br>    else<br>        temp_T(i,2) = 1;<br>    end<br>end<br>T = temp_T*2-1;  </p>
-<p>outputWeight = pinv(H)*T;  </p>
-<p>%–画出图形<br>x_1 = data(:,1);<br>x_2 = data(:,2);<br>hold on<br>for i = 1 : N<br>    if label(i,:) == 0<br>        plot(x_1(i,:),x_2(i,:),’.g’);<br>    else<br>        plot(x_1(i,:),x_2(i,:),’.r’);<br>    end<br>end  </p>
-<p>output = H * outputWeight;<br>%—计算错误率<br>tempCorrect=0;<br>for i = 1:N<br>    [maxNum,index] = max(output(i,:));<br>    index = index-1;<br>    if index == label(i,:);<br>        tempCorrect = tempCorrect+1;<br>    end<br>end  </p>
-<p>errorRate = 1-tempCorrect./N;  </p>
-<p>激活函数<br>[plain] view plain copy<br>function [ H ] = g( X )<br>    H = 1 ./ (1 + exp(-X));<br>end  </p>
 
           
         
